@@ -14,6 +14,7 @@ Base = declarative_base()
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine)
 
+
 # Define Message model
 class Message(Base):
     __tablename__ = "messages"
@@ -22,16 +23,19 @@ class Message(Base):
     message = Column(String, index=True)
     timestamp = Column(DateTime, default=datetime.utcnow)
 
+
 # Create database tables
 Base.metadata.create_all(bind=engine)
 
 # FastAPI app
 app = FastAPI()
 
+
 # Pydantic models
 class MessageCreate(BaseModel):
     username: str
     message: str
+
 
 @app.post("/messages/")
 def create_message(message: MessageCreate):
@@ -42,6 +46,7 @@ def create_message(message: MessageCreate):
     db.refresh(new_message)
     db.close()
     return {"message": "Message stored successfully"}
+
 
 @app.get("/messages/")
 def get_messages():
