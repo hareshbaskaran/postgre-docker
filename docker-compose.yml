@@ -23,9 +23,18 @@ services:
       - "5432:5432"
     networks:
       - app_network
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "postgres" ]
+      interval: 10s
+      retries: 5
+      timeout: 5s
+      start_period: 30s
+    restart: always
 
 volumes:
   postgres_data:
+    driver: local
 
 networks:
   app_network:
+    driver: bridge
