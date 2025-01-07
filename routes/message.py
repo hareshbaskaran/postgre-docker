@@ -1,18 +1,11 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from models.database import SessionLocal
+from core.connection import get_db
 from models.message import Message
 from schemas.message import MessageCreate, MessageResponse
 
 router = APIRouter()
 
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 
 @router.post("/", response_model=MessageResponse)
