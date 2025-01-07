@@ -9,14 +9,14 @@ router = APIRouter()
 
 @router.post("/", response_model=MessageResponse)
 def create_message(message: MessageCreate, db: Session = Depends(get_db)):
-    new_message = Message(username=message.username, message=message.message)
-    db.add(new_message)
+    curr_msg = Message(username=message.username, message=message.message)
+    db.add(curr_msg)
     db.commit()
-    db.refresh(new_message)
-    return new_message
+    db.refresh(curr_msg)
+    return curr_msg
 
 
 @router.get("/", response_model=list[MessageResponse])
 def get_messages(db: Session = Depends(get_db)):
-    messages = db.query(Message).all()
-    return messages
+    msgs = db.query(Message).all()
+    return msgs
