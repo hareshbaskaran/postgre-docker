@@ -3,7 +3,7 @@ from datetime import datetime
 
 
 class MessageBase(BaseModel):
-    username: str = Field(..., min_length=3, max_length=50, example="john_doe")
+    username: str = Field(..., min_length=3, max_length=50, example="haresh")
     message: str = Field(..., min_length=1, max_length=500, example="Hello, world!")
 
 
