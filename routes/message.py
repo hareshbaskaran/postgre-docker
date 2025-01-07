@@ -7,12 +7,9 @@ from schemas.message import MessageCreate, MessageResponse
 router = APIRouter()
 
 
-
 @router.post("/", response_model=MessageResponse)
 def create_message(message: MessageCreate, db: Session = Depends(get_db)):
-    new_message = Message(
-        username=message.username, message=message.message
-    )
+    new_message = Message(username=message.username, message=message.message)
     db.add(new_message)
     db.commit()
     db.refresh(new_message)
