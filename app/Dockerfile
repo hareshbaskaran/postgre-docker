@@ -17,9 +17,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the rest of the application
 COPY . .
 
-# Set proxy environment variables (if needed)
+# Set proxy environment variables
 ENV http_proxy=http://proxy.example.com:8080
 ENV https_proxy=http://proxy.example.com:8080
 
 # Run the application
-CMD ["fastapi", "main:app", "--host", "localhost", "--port", "8000"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
